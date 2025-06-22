@@ -30,7 +30,8 @@ RUN composer config --unset scripts.post-update-cmd
 RUN composer install --no-dev --no-interaction --optimize-autoloader
 
 # Exponemos el puerto
-EXPOSE 8000
+EXPOSE 8080
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
 
 # Entrypoint para esperar la DB y ejecutar fixtures
 COPY entrypoint.sh /entrypoint.sh
