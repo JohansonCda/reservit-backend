@@ -31,6 +31,8 @@ RUN composer config --unset scripts.post-update-cmd
 # Instala dependencias
 RUN composer install --no-dev --no-interaction --optimize-autoloader
 
+RUN php bin/console assets:install public --no-interaction --env=prod
+
 # Exponemos el puerto
 EXPOSE 8000
 
