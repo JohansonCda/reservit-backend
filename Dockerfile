@@ -3,7 +3,7 @@ FROM php:8.2-cli
 
 # Variables de entorno
 ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV APP_ENV=prod
+ENV APP_ENV=dev
 
 # Instala extensiones necesarias
 RUN apt-get update && apt-get install -y \
