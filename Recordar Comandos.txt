@@ -1,0 +1,25 @@
+compóser update
+
+- Autenticación JWT con lexik.
+- Estructura de API usando API Platform.
+- Doctrine como orm y herramienta para Migrations.
+- Fixture para Seeders.
+- Fakerphp para crear datos de prueba
+
+- Edito .env para conexión a la base
+
+- Se inicializa la llave privada y publica con:
+	openssl genrsa -out config/jwt/private.pem -aes256 4096
+	openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+
+- Se configura el security.yaml para activar auth
+
+- Se utiliza "php bin/console make:entity <Entity_Name>" para empezar a crear las entidades, o editar una entidad si necesitas crear más campos.
+
+- Se utiliza "php bin/console make:migration" para preparar la migración con los datos que creaste.
+
+- Se utiliza "php bin/console doctrine:migrations:migrate" para ejecutar la migración.
+
+- Se utiliza "php bin/console make:controller" para crear el controlador.
+
+- Utilizo el patrón DTO(Data Transfer object) para la interacción con la API e instanciar a partir de los datos recibidos
