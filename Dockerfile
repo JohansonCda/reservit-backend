@@ -7,7 +7,7 @@ ENV APP_ENV=prod
 # Instala extensiones necesarias y herramientas
 RUN apt-get update && apt-get install -y \
     git unzip zip libicu-dev libzip-dev libxml2-dev \
-    default-mysql-client netcat \
+    default-mysql-client netcat-openbsd \
     && docker-php-ext-install pdo pdo_mysql intl zip
 
 # Instala Composer
