@@ -21,10 +21,6 @@ WORKDIR /var/www
 # Copia los archivos del proyecto
 COPY . .
 
-# Copia el entrypoint y da permisos
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 # Configura Composer
 RUN composer config --no-plugins allow-plugins.symfony/scripts-handler false
 RUN composer config --no-plugins allow-plugins.symfony/flex true
