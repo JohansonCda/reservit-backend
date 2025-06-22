@@ -33,7 +33,7 @@ RUN composer install --no-dev --no-interaction --optimize-autoloader
 
 RUN php bin/console assets:install public --no-interaction --env=prod
 
-RUN composer require doctrine/doctrine-fixtures-bundle:*
+RUN composer require doctrine/doctrine-fixtures-bundle --dev
 # Ejecuta migraciones y carga de fixtures
 RUN php bin/console doctrine:migrations:migrate --no-interaction || true
 RUN php bin/console doctrine:fixtures:load --no-interaction || true
