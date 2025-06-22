@@ -21,5 +21,3 @@ compóser update
 - Se utiliza "php bin/console doctrine:migrations:migrate" para ejecutar la migración.
 
 - Se utiliza "php bin/console make:controller" para crear el controlador.
-
-- Utilizo el patrón DTO(Data Transfer object) para la interacción con la API e instanciar a partir de los datos recibidos
