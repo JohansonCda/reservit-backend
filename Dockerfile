@@ -37,5 +37,3 @@ RUN composer install --no-dev --no-interaction --optimize-autoloader
 # Expone el puerto (ajustable)
 EXPOSE 8000
 
-# Usa el entrypoint personalizado
-CMD ["/entrypoint.sh"]
