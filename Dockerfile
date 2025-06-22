@@ -5,13 +5,14 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql intl zip
 
 RUN curl -sS https://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer
+    mv composer.phar /usr/local/bin/composer && \
+    composer --version
 
 WORKDIR /app
 
 COPY . .
 
-RUN /usr/local/bin/composer install 
+RUN composer install --no-dev --no-interaction --optimize-autoloader
 
 EXPOSE 8000
 
