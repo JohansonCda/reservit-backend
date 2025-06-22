@@ -1,31 +1,37 @@
-FROM php:8.3-cli
+# Etapa base
+FROM php:8.2-cli
 
+# Variables de entorno recomendadas
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV APP_ENV=prod
+
+# Instala extensiones necesarias y herramientas
 RUN apt-get update && apt-get install -y \
-    git unzip zip curl libicu-dev libzip-dev libxml2-dev default-mysql-client \
+    git unzip zip libicu-dev libzip-dev libxml2-dev \
+    default-mysql-client \
     && docker-php-ext-install pdo pdo_mysql intl zip
 
-# Instalar Composer
+# Instala Composer globalmente
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
-# Variables necesarias para entornos de producción
-ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV SYMFONY_SKIP_VERSIONS_CHECK=1
-ENV SYMFONY_ALLOW_APP_SCRIPTS=1
-ENV APP_ENV=prod
-ENV APP_DEBUG=0
+# Crea el directorio de la aplicación
+WORKDIR /var/www
 
-# Desactivar plugins de Symfony que causan errores
+# Copia los archivos del proyecto
+COPY . .
+
+# Configura composer (esto debe ir después del COPY)
 RUN composer config --no-plugins allow-plugins.symfony/scripts-handler false
-RUN composer config --no-plugins allow-plugins.symfony/flex false
+RUN composer config --no-plugins allow-plugins.symfony/flex true
 RUN composer config scripts.post-install-cmd []
 RUN composer config scripts.post-update-cmd []
 
-WORKDIR /app
-COPY . .
-
+# Instala las dependencias
 RUN composer install --no-dev --no-interaction --optimize-autoloader
 
+# Puerto que expondrá el servidor Symfony
 EXPOSE 8000
 
+# Comando por defecto (puedes usar también Apache o Nginx según setup)
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
