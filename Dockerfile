@@ -1,25 +1,28 @@
-# Imagen base con PHP 8.3
+# Etapa 1: Composer con dependencias
+FROM composer:2 AS composer
+
+WORKDIR /app
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --no-interaction --optimize-autoloader
+
+# Etapa 2: PHP con extensiones necesarias
 FROM php:8.3-cli
 
-# Instala extensiones de PHP requeridas por Symfony y MySQL
+# Instalar extensiones necesarias y herramientas del sistema
 RUN apt-get update && apt-get install -y \
     git unzip zip libicu-dev libzip-dev libxml2-dev default-mysql-client \
     && docker-php-ext-install pdo pdo_mysql intl zip
 
-# Instala Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# Define el directorio de trabajo
 WORKDIR /app
 
-# Copia el proyecto al contenedor
+# Copiar el código fuente del proyecto
 COPY . .
 
-# Instala las dependencias de PHP (modo producción)
-RUN composer install --no-interaction --optimize-autoloader --no-dev
+# Copiar las dependencias desde la etapa anterior
+COPY --from=composer /app/vendor /app/vendor
 
-# Puerto expuesto para Railway (Symfony en 8000)
+# Puerto donde corre Symfony
 EXPOSE 8000
 
-# Comando para correr Symfony en modo producción
+# Comando por defecto para ejecutar Symfony
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
