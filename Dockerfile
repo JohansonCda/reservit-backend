@@ -36,6 +36,3 @@ EXPOSE 8000
 # Comando por defecto (puedes usar también Apache o Nginx según setup)
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
 
-COPY entrypoint.sh /app/entrypoint.sh
-ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["symfony", "server:start", "--no-interaction", "--allow-http", "--port=8000"]
