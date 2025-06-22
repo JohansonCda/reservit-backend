@@ -10,9 +10,11 @@
         "api-platform/core": "^4.1",
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.14",
+        "doctrine/doctrine-fixtures-bundle": "^4.1",
         "doctrine/doctrine-migrations-bundle": "^3.4",
         "doctrine/migrations": "^3.9",
         "doctrine/orm": "^3.3",
+        "fakerphp/faker": "^1.24",
         "lexik/jwt-authentication-bundle": "^3.1",
         "nelmio/cors-bundle": "^2.5",
         "symfony/asset": "*",
@@ -70,8 +72,6 @@
         }
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^4.1",
-        "fakerphp/faker": "^1.24",
         "hautelook/alice-bundle": "*",
         "nelmio/alice": "*",
         "phpunit/phpunit": "*",
