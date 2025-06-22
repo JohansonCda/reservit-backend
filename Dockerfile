@@ -3,7 +3,7 @@ FROM php:8.2-cli
 
 # Variables de entorno recomendadas
 ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV APP_ENV=prod
+ENV APP_ENV=dev
 
 # Instala extensiones necesarias y herramientas
 RUN apt-get update && apt-get install -y \
@@ -24,8 +24,6 @@ COPY . .
 # Configura composer (esto debe ir después del COPY)
 RUN composer config --no-plugins allow-plugins.symfony/scripts-handler false
 RUN composer config --no-plugins allow-plugins.symfony/flex true
-RUN composer config scripts.post-install-cmd []
-RUN composer config scripts.post-update-cmd []
 
 # Instala las dependencias
 RUN composer install --no-dev --no-interaction --optimize-autoloader
