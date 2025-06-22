@@ -1,15 +1,17 @@
-#!/bin/bash
+#!/bin/sh
+
 set -e
 
-# Esperar a que MySQL esté disponible (ajusta host si es necesario)
-until mysqladmin ping -h"$MYSQL_HOST" --silent; do
-  echo "Esperando a MySQL..."
+# Esperar a que la base de datos esté lista
+until nc -z $DB_HOST $DB_PORT; do
+  echo "⏳ Esperando a la base de datos en $DB_HOST:$DB_PORT..."
   sleep 2
 done
 
-# Crear base de datos y ejecutar migraciones
+# Ejecutar comandos Symfony
 php bin/console doctrine:database:create --if-not-exists
 php bin/console doctrine:migrations:migrate --no-interaction
+php bin/console doctrine:fixtures:load --no-interaction
 
-# Iniciar servidor Symfony
-exec "$@"
+# Iniciar el servidor web en el puerto 8000
+php -S 0.0.0.0:8000 -t public
