@@ -33,6 +33,10 @@ RUN composer install --no-dev --no-interaction --optimize-autoloader
 
 RUN php bin/console assets:install public --no-interaction --env=prod
 
+# Ejecuta migraciones y carga de fixtures
+RUN php bin/console doctrine:migrations:migrate --no-interaction || true
+RUN php bin/console doctrine:fixtures:load --no-interaction || true
+
 # Exponemos el puerto
 EXPOSE 8000
 
