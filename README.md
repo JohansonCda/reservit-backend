@@ -4,7 +4,7 @@ API RESTful construida con Symfony 7, API Platform y autenticación JWT para ges
 
 # Requisitos
 
-- PHP >= 8.2
+- PHP >= 8.3
 - Composer
 - Symfony CLI (opcional)
 - PostgreSQL o MySQL
