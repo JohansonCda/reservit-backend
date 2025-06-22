@@ -20,6 +20,8 @@ WORKDIR /var/www
 # Copia archivos
 COPY . .
 
+COPY .env.production .env
+
 # Configura composer para evitar errores en producción
 RUN composer config --no-plugins allow-plugins.symfony/scripts-handler false
 RUN composer config --no-plugins allow-plugins.symfony/flex true
