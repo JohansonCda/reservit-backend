@@ -1,23 +1,17 @@
-# Etapa 1: Imagen PHP con Composer preinstalado
-FROM php:8.3-cli AS base
+FROM php:8.3-cli
 
-# Variables de entorno recomendadas
-ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV COMPOSER_HOME=/composer
+RUN apt-get update && apt-get install -y \
+    git unzip zip curl libicu-dev libzip-dev libxml2-dev default-mysql-client \
+    && docker-php-ext-install pdo pdo_mysql intl zip
 
-# Instala Composer manualmente
-RUN apt-get update && apt-get install -y curl unzip git zip libicu-dev libzip-dev libxml2-dev default-mysql-client && \
-    curl -sS https://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer && \
-    docker-php-ext-install pdo pdo_mysql intl zip
+RUN curl -sS https://getcomposer.org/installer | php && \
+    mv composer.phar /usr/local/bin/composer
 
 WORKDIR /app
 
-# Copiar archivos del proyecto
 COPY . .
 
-# Instalar dependencias de PHP
-RUN composer install --no-dev --no-interaction --optimize-autoloader
+RUN /usr/local/bin/composer install 
 
 EXPOSE 8000
 
