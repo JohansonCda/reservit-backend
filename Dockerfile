@@ -24,8 +24,8 @@ COPY . .
 # Configura composer (esto debe ir después del COPY)
 RUN composer config --no-plugins allow-plugins.symfony/scripts-handler false
 RUN composer config --no-plugins allow-plugins.symfony/flex true
-RUN composer config scripts.post-install-cmd []
-RUN composer config scripts.post-update-cmd []
+RUN composer config --unset scripts.post-install-cmd
+RUN composer config --unset scripts.post-update-cmd
 
 # Instala las dependencias
 RUN composer install --no-dev --no-interaction --optimize-autoloader
